@@ -102,7 +102,7 @@ class StAlbansRubbishCollectionsSchedule(CoordinatorEntity):
 
     """
 
-    attribution = "This uses National Rail Darwin Data Feeds"
+    attribution = "This uses St Albans City and District Council's rubbish collection dashboard."
 
     def __init__(self, coordinator):
         """Pass coordinator to CoordinatorEntity."""
