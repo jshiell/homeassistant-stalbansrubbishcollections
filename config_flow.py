@@ -31,7 +31,7 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
     VERSION = 1
 
-    def _validate_input(hass: HomeAssistant, data: dict[str, Any]) -> dict[str, Any]:
+    def _validate_input(self, hass: HomeAssistant, data: dict[str, Any]) -> dict[str, Any]:
         """Validate the user input allows us to connect.
 
         Data has the keys from STEP_USER_DATA_SCHEMA with values provided by the user.
