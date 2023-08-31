@@ -122,4 +122,4 @@ class StAlbansRubbishCollectionsSchedule(CoordinatorEntity):
     @property
     def state(self):
         """Return the state of the sensor."""
-        return self.coordinator.data["next_train_expected"]
+        return self.coordinator.data["nextCollection"]

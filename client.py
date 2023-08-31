@@ -38,18 +38,24 @@ class StAlbansRubbishCollectionsClient:
     def _process_data(self, json_response):
         """Process the data from the API into something interesting"""
 
-        collection_data = {}
+        collection_data = {
+            "nextCollection": None
+        }
 
         for collection in json_response["d"]:
             if collection["ServiceHeaders"] and len(collection["ServiceHeaders"]) > 0:
                 collection = collection["ServiceHeaders"][0]
 
+                next_collection = self._parse_date(collection["Next"])
                 collection_data[self._camel_case(collection["TaskType"])] = {
                     "name": collection["TaskType"],
                     "last": self._parse_date(collection["Last"]),
-                    "next": self._parse_date(collection["Next"]),
+                    "next": next_collection,
                     "scheduleDescription": collection["ScheduleDescription"]
                 }
+
+                if collection_data["nextCollection"] is None or next_collection < collection_data["nextCollection"]:
+                    collection_data["nextCollection"] = next_collection
 
         return collection_data
     
