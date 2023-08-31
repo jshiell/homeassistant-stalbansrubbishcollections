@@ -11,4 +11,4 @@ ENDPOINT_URI = "https://gis.stalbans.gov.uk/NoticeBoard9/VeoliaProxy.NoticeBoard
 CONF_UPRN = "uprn"
 
 POLLING_INTERVAL_MINUTES = 2
-DATA_REFRESH_MINUTES = 60
+DATA_REFRESH_MINUTES = 720
