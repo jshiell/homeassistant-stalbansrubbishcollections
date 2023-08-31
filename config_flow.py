@@ -26,26 +26,25 @@ STEP_USER_DATA_SCHEMA = vol.Schema(
 )
 
 
-async def validate_input(hass: HomeAssistant, data: dict[str, Any]) -> dict[str, Any]:
-    """Validate the user input allows us to connect.
-
-    Data has the keys from STEP_USER_DATA_SCHEMA with values provided by the user.
-    """
-
-    try:
-        StAlbansRubbishCollectionsClient(data[CONF_UPRN]).async_get_data()
-    except StAlbansRubbishCollectionsClientException as err:
-        _LOGGER.exception(err)
-        raise InvalidToken() from err
-
-    # Return info that you want to store in the config entry.
-    return {"title": f'Rubbish collection for UPRN {data[CONF_UPRN]}'}
-
-
 class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     """Handle a config flow."""
 
     VERSION = 1
+
+    def _validate_input(hass: HomeAssistant, data: dict[str, Any]) -> dict[str, Any]:
+        """Validate the user input allows us to connect.
+
+        Data has the keys from STEP_USER_DATA_SCHEMA with values provided by the user.
+        """
+
+        try:
+            StAlbansRubbishCollectionsClient(data[CONF_UPRN]).async_get_data()
+        except StAlbansRubbishCollectionsClientException as err:
+            _LOGGER.exception(err)
+            raise InvalidUPRN() from err
+
+        # Return info that you want to store in the config entry.
+        return {"title": f'Rubbish collection for UPRN {data[CONF_UPRN]}'}
 
     async def async_step_user(
         self, user_input: dict[str, Any] | None = None
@@ -61,7 +60,7 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         errors = {}
 
         try:
-            info = validate_input(self.hass, user_input)
+            info = self._validate_input(self.hass, user_input)
         except InvalidUPRN:
             errors["base"] = "invalid_uprn"
         except Exception:  # pylint: disable=broad-except
