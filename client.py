@@ -54,7 +54,7 @@ class StAlbansRubbishCollectionsClient:
     async def async_get_data(self):
         """Data refresh request from the coordinator"""
         try:
-            _LOGGER.info("Requesting depearture data for %s", self.station)
+            _LOGGER.info("Requesting data for %s", self.uprn)
             response = requests.post(ENDPOINT_URI, headers=self.headers, json=self.data).json()
         except Exception as err:
             _LOGGER.exception("Exception whilst fetching data: ")
