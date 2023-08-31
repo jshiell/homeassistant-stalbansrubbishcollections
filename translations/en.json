@@ -1,0 +1,20 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "title": "Find rubbish collection days in St Albans",
+                "description": "Enter the UPRN of the property you wish to monitor",
+                "data": {
+                    "uprn": "The UPRN for your property"
+                }
+            }
+        },
+        "error": {
+            "invalid_uprn": "Invalid UPRN",
+            "unknown": "Unexpected error"
+        },
+        "abort": {
+            "already_configured": "Device is already configured"
+        }
+    }
+}

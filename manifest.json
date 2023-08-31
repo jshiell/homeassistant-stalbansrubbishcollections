@@ -1,0 +1,10 @@
+{
+    "domain": "stalbansrubbishcollections",
+    "name": "St Albans Rubbish Collections",
+    "config_flow": true,
+    "documentation": "https://github.com/jshiell/homeassistant-stalbansrubbishcollections",
+    "requirements": ["requests"],
+    "version": "0.0.1",
+    "codeowners": ["@jshiell"],
+    "iot_class": "cloud_polling"
+}
