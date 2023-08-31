@@ -48,7 +48,7 @@ class StAlbansRubbishCollectionsScheduleCoordinator(DataUpdateCoordinator):
             update_interval=timedelta(minutes=POLLING_INTERVAL_MINUTES),
         )
         self.uprn = uprn
-        self.api_client = StAlbansRubbishCollectionsClient(uprn)
+        self.api_client = StAlbansRubbishCollectionsClient(hass, uprn)
 
         self.last_data_refresh = None
 
@@ -84,37 +84,6 @@ class StAlbansRubbishCollectionsScheduleCoordinator(DataUpdateCoordinator):
             data["name"] = self.sensor_name
             data["description"] = self.description
             data["friendly_name"] = self.friendly_name
-
-            # TODO: parse data from API
-            data["next_train_scheduled"] = None
-            data["next_train_expected"] = None
-            data["destinations"] = None
-            data["terminus"] = None
-            data["platform"] = None
-            data["perturbations"] = False
-
-            for each in data["trains"]:
-                if data["next_train_scheduled"] is None and not (
-                    (
-                        isinstance(each["expected"], str)
-                        and each["expected"] == "Cancelled"
-                    )
-                    or (
-                        len(each["destinations"]) > 0
-                        and isinstance(
-                            each["destinations"][0]["time_at_destination"], str
-                        )
-                        and each["destinations"][0]["time_at_destination"]
-                        == "Cancelled"
-                    )
-                ):
-                    data["next_train_scheduled"] = each["scheduled"]
-                    data["next_train_expected"] = each["expected"]
-                    data["destinations"] = each["destinations"]
-                    data["terminus"] = each["terminus"]
-                    data["platform"] = each["platform"]
-
-                data["perturbations"] = data["perturbations"] or each["perturbation"]
 
         else:
             data = self.data

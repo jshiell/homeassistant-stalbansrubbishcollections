@@ -2,6 +2,7 @@
 import logging
 from datetime import datetime
 import requests
+from homeassistant.core import HomeAssistant
 
 from .const import ENDPOINT_URI
 
@@ -15,7 +16,8 @@ class StAlbansRubbishCollectionsClientException(Exception):
 class StAlbansRubbishCollectionsClient:
     """Client for the St Albans Veolia dashboard."""
 
-    def __init__(self, uprn) -> None:
+    def __init__(self, hass: HomeAssistant, uprn) -> None:
+        self.hass = hass
         self.uprn = uprn
         self.headers = {
             "accept": "application/json",
@@ -50,12 +52,15 @@ class StAlbansRubbishCollectionsClient:
                 }
 
         return collection_data
+    
+    def _sync_request(self):
+        return requests.post(ENDPOINT_URI, headers=self.headers, json=self.data).json()
 
     async def async_get_data(self):
         """Data refresh request from the coordinator"""
         try:
             _LOGGER.info("Requesting data for %s", self.uprn)
-            response = requests.post(ENDPOINT_URI, headers=self.headers, json=self.data).json()
+            response = await self.hass.async_add_executor_job(self._sync_request)
         except Exception as err:
             _LOGGER.exception("Exception whilst fetching data: ")
             raise StAlbansRubbishCollectionsClientException("Unknown Error") from err

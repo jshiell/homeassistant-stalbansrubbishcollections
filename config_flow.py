@@ -38,7 +38,7 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         """
 
         try:
-            StAlbansRubbishCollectionsClient(data[CONF_UPRN]).async_get_data()
+            StAlbansRubbishCollectionsClient(hass, data[CONF_UPRN]).async_get_data()
         except StAlbansRubbishCollectionsClientException as err:
             _LOGGER.exception(err)
             raise InvalidUPRN() from err
