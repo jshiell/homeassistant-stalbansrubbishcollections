@@ -54,7 +54,7 @@ class StAlbansRubbishCollectionsClient:
         return collection_data
     
     def _sync_request(self):
-        return requests.post(ENDPOINT_URI, headers=self.headers, json=self.data).json()
+        return requests.post(ENDPOINT_URI, headers=self.headers, json=self.data)
 
     async def async_get_data(self):
         """Data refresh request from the coordinator"""
