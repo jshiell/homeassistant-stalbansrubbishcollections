@@ -41,43 +41,28 @@ You'll need some sensors to expose the state:
 ```yaml
 template:
   - sensor:
-     - unique_id: rubbish_recycling_next
-       state: "{{as_timestamp(state_attr('sensor.stalbans_rubbish_collection_<your uprn>', 'CollectDomesticRecycling')['next']) | timestamp_custom('%d/%m/%Y') }}"
-       attributes:
-         friendly_name: "Next recycling collection date"
-  - sensor:
-     - unique_id: rubbish_recycling_last
-       state: "{{as_timestamp(state_attr('sensor.stalbans_rubbish_collection_<your uprn>', 'CollectDomesticRecycling')['last']) | timestamp_custom('%d/%m/%Y') }}"
-       attributes:
-         friendly_name: "Last recycling collection date"
-  - sensor:
-     - unique_id: rubbish_refuse_next
-       state: "{{as_timestamp(state_attr('sensor.stalbans_rubbish_collection_<your uprn>', 'CollectDomesticRefuse')['next']) | timestamp_custom('%d/%m/%Y') }}"
-       attributes:
-         friendly_name: "Next refuse collection date"
-  - sensor:
-     - unique_id: rubbish_refuse_last
-       state: "{{as_timestamp(state_attr('sensor.stalbans_rubbish_collection_<your uprn>', 'CollectDomesticRefuse')['last']) | timestamp_custom('%d/%m/%Y') }}"
-       attributes:
-         friendly_name: "Last refuse collection date"
-  - sensor:
-     - unique_id: rubbish_food_next
-       state: "{{as_timestamp(state_attr('sensor.stalbans_rubbish_collection_<your uprn>', 'CollectDomesticFood')['next']) | timestamp_custom('%d/%m/%Y') }}"
-       attributes:
-         friendly_name: "Next food waste collection date"
-  - sensor:
-     - unique_id: rubbish_food_last
-       state: "{{as_timestamp(state_attr('sensor.stalbans_rubbish_collection_<your uprn>', 'CollectDomesticFood')['last']) | timestamp_custom('%d/%m/%Y') }}"
-       attributes:
-         friendly_name: "Last food waste collection date"
-  - sensor:
-     - unique_id: rubbish_garden_next
-       state: "{{as_timestamp(state_attr('sensor.stalbans_rubbish_collection_<your uprn>', 'CollectDomesticPaidGarden')['next']) | timestamp_custom('%d/%m/%Y') }}"
-       attributes:
-         friendly_name: "Next garden waste collection date"
-  - sensor:
-     - unique_id: rubbish_garden_last
-       state: "{{as_timestamp(state_attr('sensor.stalbans_rubbish_collection_<your uprn>', 'CollectDomesticPaidGarden')['last']) | timestamp_custom('%d/%m/%Y') }}"
-       attributes:
-         friendly_name: "Last garden waste collection date"
+    - name: "Next recycling collection date"
+      unique_id: rubbish_recycling_next
+      state: "{{as_timestamp(state_attr('sensor.stalbans_rubbish_collection_<your uprn>', 'CollectDomesticRecycling')['next']) | timestamp_custom('%d/%m/%Y') }}"
+    - name: "Last recycling collection date"
+      unique_id: rubbish_recycling_last
+      state: "{{as_timestamp(state_attr('sensor.stalbans_rubbish_collection_<your uprn>', 'CollectDomesticRecycling')['last']) | timestamp_custom('%d/%m/%Y') }}"
+    - name: "Next refuse collection date"
+      unique_id: rubbish_refuse_next
+      state: "{{as_timestamp(state_attr('sensor.stalbans_rubbish_collection_<your uprn>', 'CollectDomesticRefuse')['next']) | timestamp_custom('%d/%m/%Y') }}"
+    - name: "Last refuse collection date"
+      unique_id: rubbish_refuse_last
+      state: "{{as_timestamp(state_attr('sensor.stalbans_rubbish_collection_<your uprn>', 'CollectDomesticRefuse')['last']) | timestamp_custom('%d/%m/%Y') }}"
+    - name: "Next food waste collection date"
+      unique_id: rubbish_food_next
+      state: "{{as_timestamp(state_attr('sensor.stalbans_rubbish_collection_<your uprn>', 'CollectDomesticFood')['next']) | timestamp_custom('%d/%m/%Y') }}"
+    - name: "Last food waste collection date"
+      unique_id: rubbish_food_last
+      state: "{{as_timestamp(state_attr('sensor.stalbans_rubbish_collection_<your uprn>', 'CollectDomesticFood')['last']) | timestamp_custom('%d/%m/%Y') }}"
+    - name: "Next garden waste collection date"
+      unique_id: rubbish_garden_next
+      state: "{{as_timestamp(state_attr('sensor.stalbans_rubbish_collection_<your uprn>', 'CollectDomesticPaidGarden')['next']) | timestamp_custom('%d/%m/%Y') }}"
+    - name: "Last garden waste collection date"
+      unique_id: rubbish_garden_last
+      state: "{{as_timestamp(state_attr('sensor.stalbans_rubbish_collection_<your uprn>', 'CollectDomesticPaidGarden')['last']) | timestamp_custom('%d/%m/%Y') }}"
 ```
